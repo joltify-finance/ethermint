@@ -571,9 +571,9 @@ func NewEthermintApp(
 		evm.NewAppModule(app.EvmKeeper, app.AccountKeeper, evmSs),
 	)
 
-	app.mm.SetOrderPreBlockers(
-		upgradetypes.ModuleName,
-	)
+	//app.mm.SetOrderPreBlockers(
+	//	upgradetypes.ModuleName,
+	//)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
 	// there is nothing left over in the validator fee pool, so as to keep the
@@ -708,7 +708,7 @@ func NewEthermintApp(
 	// initialize BaseApp
 	app.SetInitChainer(app.InitChainer)
 	app.SetBeginBlocker(app.BeginBlocker)
-	app.SetPreBlocker(app.PreBlocker)
+	//app.SetPreBlocker(app.PreBlocker)
 	app.SetEndBlocker(app.EndBlocker)
 	app.setAnteHandler(encodingConfig.TxConfig, cast.ToUint64(appOpts.Get(srvflags.EVMMaxTxGasWanted)))
 	// In v0.46, the SDK introduces _postHandlers_. PostHandlers are like
@@ -778,10 +778,10 @@ func (app *EthermintApp) setPostHandler() {
 // Name returns the name of the App
 func (app *EthermintApp) Name() string { return app.BaseApp.Name() }
 
-// PreBlocker updates every pre begin block
-func (app *EthermintApp) PreBlocker(ctx sdk.Context, req abci.RequestBeginBlock) (sdk.ResponsePreBlock, error) {
-	return app.mm.PreBlock(ctx, req)
-}
+//// PreBlocker updates every pre begin block
+//func (app *EthermintApp) PreBlocker(ctx sdk.Context, req abci.RequestBeginBlock) (sdk.ResponsePreBlock, error) {
+//	return app.mm.PreBlock(ctx, req)
+//}
 
 // BeginBlocker updates every begin block
 func (app *EthermintApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
